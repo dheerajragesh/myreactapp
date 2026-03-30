@@ -18,7 +18,13 @@ const Todolist = () => {
 
   return (
     <div className="todo-container" style={{ padding: '20px', maxWidth: '400px' }}>
-      <div className="input-group mb-3">
+      <form
+        className="input-group mb-3"
+        onSubmit={(e) => {
+          e.preventDefault();
+          addTask();
+        }}
+      >
         <input 
           type="text" 
           className="form-control" 
@@ -26,8 +32,8 @@ const Todolist = () => {
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <button className="btn btn-primary" onClick={addTask}>Add</button>
-      </div>
+        <button type="submit" className="btn btn-primary">Add</button>
+      </form>
 
       <ul className="list-group">
         {todoList.map((item, index) => (
@@ -37,8 +43,19 @@ const Todolist = () => {
           </li>
         ))}
       </ul>
+
+      {todoList.length > 1 && (
+        <div className="mt-3 text-end">
+          <button
+            className="btn btn-outline-secondary btn-sm"
+            onClick={() => setTodoList([])}
+          >
+            Clear All
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
-export default TodoComponent;
+export default Todolist;
